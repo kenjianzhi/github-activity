@@ -17,10 +17,18 @@ jobs:
       - name: Generate Random Commit Message
         id: random-message
         run: |
-          WORDS=("更新" "改進" "優化" "修正" "擴展" "重構" "更新日誌" "文檔更新" "性能提升" "代碼清理")
-          RANDOM_WORD=${WORDS[$RANDOM % ${#WORDS[@]}]}
+          TYPES=("feat" "fix" "docs" "style" "refactor" "test" "chore")
+          SCOPES=("資料庫" "控制層" "模板層" "介面" "後端邏輯" "前端元件")
+          ACTIONS=("新增功能" "修正錯誤" "更新文件" "格式調整" "代碼重構" "增加測試" "工具更新")
+          ISSUES=("issue #1234" "issue #5678" "issue #9012")
+
+          RANDOM_TYPE=${TYPES[$RANDOM % ${#TYPES[@]}]}
+          RANDOM_SCOPE=${SCOPES[$RANDOM % ${#SCOPES[@]}]}
+          RANDOM_ACTION=${ACTIONS[$RANDOM % ${#ACTIONS[@]}]}
+          RANDOM_ISSUE=${ISSUES[$RANDOM % ${#ISSUES[@]}]}
+
           TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
-          echo "RANDOM_MESSAGE= $RANDOM_WORD - $TIMESTAMP" >> $GITHUB_ENV
+          echo "RANDOM_MESSAGE=$RANDOM_TYPE($RANDOM_SCOPE): $RANDOM_ACTION - $TIMESTAMP\n\n調整項目：\n1. 詳細描述調整內容。\n2. 說明原因與效果。\n\n$RANDOM_ISSUE" >> $GITHUB_ENV
 
       - name: GitHub activity
         run: |
